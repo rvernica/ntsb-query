@@ -2,7 +2,7 @@
 
 ## Description
 
-The NTSB Accident Search Tool is a Python module designed to query the National Transportation Safety Board (NTSB) CAROL (Case Analysis and Reporting Online) API. It enables users to search for accident and incident records based on a variety of criteria, including date ranges, location, investigation mode, aircraft specifics, and narrative keywords.
+The NTSB Accident Search Tool is a Python module designed to query the National Transportation Safety Board (NTSB) CAROL (Case Analysis and Reporting Online) API. It enables users to search for accident and incident records based on a variety of criteria, including date ranges, location, aircraft specifics, and narrative keywords.
 
 This tool is implemented as a `BaseTool` subclass from the `crewai` library, making it suitable for integration into AI agent workflows, but it can also be used as a standalone client for the NTSB API. It handles API session creation and returns structured JSON data.
 
@@ -14,7 +14,6 @@ This tool is implemented as a `BaseTool` subclass from the `crewai` library, mak
 *   **Comprehensive Search Criteria:**
     *   Date range (start and end dates).
     *   Event location (city and state).
-    *   Investigation mode (e.g., "Aviation").
     *   Aircraft make and model.
     *   Keyword search within accident narratives (Preliminary, Factual, and Analysis sections).
 *   **Flexible Output:** Control the maximum number of results returned.
@@ -25,21 +24,17 @@ This tool is implemented as a `BaseTool` subclass from the `crewai` library, mak
 
 ## Requirements
 
-*   Python 3.7+
+*   Python 3.13+
 *   `httpx` - For making asynchronous HTTP requests to the NTSB API.
 *   `crewai` - The base framework if used with AI agents.
 *   `pydantic` - For data validation and modeling of search parameters.
 
 ## Installation
 
-1.  Ensure Python 3.7+ is installed.
-2.  Install the required Python packages:
+1.  Ensure Python 3.13+ is installed.
+2.  After cloning or downloading the code, install the package with:
     ```bash
-    pip install httpx crewai pydantic
-    ```
-    If you have a `requirements.txt` file, you can also use:
-    ```bash
-    pip install -r requirements.txt
+    pip install .
     ```
 
 ## Usage
@@ -61,7 +56,6 @@ results_loc_date = ntsb_tool._run(
     end_date="03/31/2023",
     city="Dallas",
     state="Texas",
-    investigation_mode="Aviation", # Explicitly set, though often defaults to Aviation
     max_results=3
 )
 print(results_loc_date)
@@ -107,7 +101,6 @@ The `_run` method accepts keyword arguments that correspond to the fields in the
 *   `end_date` (Optional[str]): End date for the search period (format: MM/DD/YYYY). Example: `"12/31/2023"`.
 *   `city` (Optional[str]): City where the event occurred. Example: `"Dallas"`.
 *   `state` (Optional[str]): Full state name where the event occurred. Example: `"California"`.
-*   `investigation_mode` (Optional[str]): The mode of investigation (e.g., `"Aviation"`, `"Railroad"`, `"Pipeline"`). Defaults to `"Aviation"` if aviation-specific criteria like `aircraft_make`, `aircraft_model`, or `narrative_keywords` are provided and `investigation_mode` is not set. *Note: The current implementation in `_build_query_groups` primarily targets "Aviation" by default for the main filter group.*
 *   `narrative_keywords` (Optional[str]): Comma-separated keywords to search within event narratives. Each distinct keyword phrase is searched across Preliminary, Factual, and Analysis narratives (using OR logic within the narrative types for a single keyword phrase). Multiple comma-separated keyword phrases are combined with AND logic (each phrase must be found). Example: `"engine failure, stall"`.
 *   `aircraft_make` (Optional[str]): Manufacturer of the aircraft. Example: `"Boeing"`.
 *   `aircraft_model` (Optional[str]): Model of the aircraft. Example: `"737"`.
@@ -147,7 +140,7 @@ If tests are available (e.g., in a `tests` directory using `pytest`):
 
 1.  Install `pytest`:
     ```bash
-    pip install pytest
+    pip install .[dev]
     ```
 2.  Navigate to the project's root directory and run:
     ```bash

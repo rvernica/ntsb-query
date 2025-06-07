@@ -32,14 +32,6 @@ class NTSBSearchModel(BaseModel):
     state: Optional[str] = Field(
         None, description="State of the event (full name). e.g., 'California'"
     )
-    investigation_mode: Optional[str] = Field(
-        None,
-        description=(
-            "Investigation mode. e.g., 'Aviation'. Defaults to 'Aviation' if "
-            "other aviation-related criteria like make/model or narrative keywords "
-            "are provided."
-        ),
-    )
     narrative_keywords: Optional[str] = Field(
         None,
         description=(

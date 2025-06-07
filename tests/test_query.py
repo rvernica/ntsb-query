@@ -64,7 +64,6 @@ def parse_tool_output(result_str: str):
             {
                 "start_date": "01/01/2023",
                 "end_date": "12/31/2023",
-                "investigation_mode": "Aviation",
                 "city": "San Jose",
                 "state": "California",
                 "max_results": 5,
@@ -75,7 +74,6 @@ def parse_tool_output(result_str: str):
             {
                 "start_date": "01/01/2022",
                 "end_date": "12/31/2022",
-                "investigation_mode": "Aviation",
                 "narrative_keywords": "gear failure",
                 "max_results": 5,
             },
@@ -106,8 +104,6 @@ def test_various_criteria(tool, test_id, args):
         if "state" in args:
             # API returns full state name in response
             assert first_record.get("State") == args["state"]
-        if "investigation_mode" in args:
-            assert first_record.get("Mode") == args["investigation_mode"]
 
         assert "NTSBEntryId" in first_record
         assert "NtsbNo" in first_record
