@@ -332,7 +332,7 @@ class NTSBSearchTool(BaseTool):
         """
         query_groups: List[Dict[str, Any]] = []
         main_filter_rules: List[Dict[str, Any]] = [
-            self._create_query_rule(["Event.Mode"], "is", "Aviation")
+            self._create_query_rule(["Event.Mode"], "is", ["Aviation"])
         ]
 
         # Date rules
@@ -473,6 +473,11 @@ class NTSBSearchTool(BaseTool):
         if not self.session_id:
             return "Error: NTSB API session not established. Tool cannot function."
 
+        # If all arguments are None or empty, we cannot form a query
+        if not any(kwargs.values()):
+            # This handles the case where no criteria were provided that result in query rules.
+            return "Error: No valid search criteria provided to form a query."
+
         try:
             # Pydantic validation happens here on instantiation
             params = NTSBSearchModel(**kwargs)
@@ -483,10 +488,6 @@ class NTSBSearchTool(BaseTool):
             # Catch validation errors from _build_query_groups (e.g., bad date/state)
             # or Pydantic validation errors if they were to occur here.
             return str(e)
-
-        if not query_groups:
-            # This handles the case where no criteria were provided that result in query rules.
-            return "Error: No valid search criteria provided to form a query."
 
         payload: Dict[str, Any] = {
             "ResultSetSize": (

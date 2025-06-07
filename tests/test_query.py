@@ -202,3 +202,7 @@ def test_no_criteria_error(tool):
     """Tests error handling when no search criteria are provided."""
     result = tool.run()  # No arguments
     assert result == "Error: No valid search criteria provided to form a query."
+
+    # Test with empty or None values
+    result_empty = tool.run(start_date=None, end_date=None, state=None, city=None)
+    assert result_empty == "Error: No valid search criteria provided to form a query."
