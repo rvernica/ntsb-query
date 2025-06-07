@@ -184,4 +184,4 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 ## License
 
-(Specify your license here, e.g., MIT License, Apache 2.0. If not specified, you can add: This project is unlicensed.)
+[LICENSE](LICENSE)
