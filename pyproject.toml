@@ -1,0 +1,26 @@
+[project]
+name = "ntsb-query"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13.3"
+dependencies = [
+    "crewai-tools>=0.47.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.11.5",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.0",
+    "pylint>=3.3.7",
+    "pylint-pytest>=1.1.7",
+]
+
+[tool.pytest.ini_options]
+pythonpath = "src"
+
+[tool.pylint.main]
+load-plugins = [
+    "pylint_pytest"
+]
