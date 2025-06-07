@@ -1142,7 +1142,7 @@ dependencies = [
     { name = "pydantic" },
 ]
 
-[package.dev-dependencies]
+[package.optional-dependencies]
 dev = [
     { name = "pylint" },
     { name = "pylint-pytest" },
@@ -1154,14 +1154,11 @@ requires-dist = [
     { name = "crewai", specifier = ">=0.126.0" },
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "pydantic", specifier = ">=2.11.5" },
+    { name = "pylint", marker = "extra == 'dev'", specifier = ">=3.3.7" },
+    { name = "pylint-pytest", marker = "extra == 'dev'", specifier = ">=1.1.7" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.4.0" },
 ]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "pylint", specifier = ">=3.3.7" },
-    { name = "pylint-pytest", specifier = ">=1.1.7" },
-    { name = "pytest", specifier = ">=8.4.0" },
-]
+provides-extras = ["dev"]
 
 [[package]]
 name = "numpy"
